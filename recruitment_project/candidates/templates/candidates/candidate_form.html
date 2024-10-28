@@ -1,0 +1,110 @@
+{% load form_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Candidate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1, h2 { color: #333; }
+        .messages .success { color: green; }
+        .messages .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Create Candidate</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label>{{ form.full_name.label_tag }}</label>
+                {{ form.full_name|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.email.label_tag }}</label>
+                {{ form.email|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.phone.label_tag }}</label>
+                {{ form.phone|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.date_of_birth.label_tag }}</label>
+                {{ form.date_of_birth|add_class:"form-control" }}
+            </div>
+
+            <h2 class="my-4">Professional Experience</h2>
+            <div class="form-group">
+                <label>{{ form.company.label_tag }}</label>
+                {{ form.company|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.position.label_tag }}</label>
+                {{ form.position|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.experience_start_date.label_tag }}</label>
+                {{ form.experience_start_date|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.experience_end_date.label_tag }}</label>
+                {{ form.experience_end_date|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.experience_description.label_tag }}</label>
+                {{ form.experience_description|add_class:"form-control" }}
+            </div>
+
+            <h2 class="my-4">Academic Formation</h2>
+            <div class="form-group">
+                <label>{{ form.institution.label_tag }}</label>
+                {{ form.institution|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.degree.label_tag }}</label>
+                {{ form.degree|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.field_of_study.label_tag }}</label>
+                {{ form.field_of_study|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.education_start_date.label_tag }}</label>
+                {{ form.education_start_date|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label>{{ form.education_end_date.label_tag }}</label>
+                {{ form.education_end_date|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.resume.label_tag }}</label>
+                {{ form.resume|add_class:"form-control-file" }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

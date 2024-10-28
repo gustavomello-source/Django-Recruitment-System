@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ candidate.full_name }}</h1>
+    
+    <div class="personal-info">
+        <p>Email: {{ candidate.email }}</p>
+        <p>Phone: {{ candidate.phone }}</p>
+        <p>Date of Birth: {{ candidate.date_of_birth }}</p>
+    </div>
+
+    <div class="professional-experience">
+        <h2>Professional Experience</h2>
+        {% if candidate.position %}
+            <div class="experience-entry">
+                <p>{{ candidate.position }} at {{ candidate.company }}
+                   ({{ candidate.experience_start_date|date:"M Y" }} - 
+                   {% if candidate.experience_end_date %}
+                       {{ candidate.experience_end_date|date:"M Y" }}
+                   {% else %}
+                       Present
+                   {% endif %})</p>
+                <p>Description: {{ candidate.experience_description }}</p>
+            </div>
+        {% else %}
+            <p>No professional experiences recorded.</p>
+        {% endif %}
+    </div>
+
+    <div class="academic-formation">
+        <h2>Academic Formation</h2>
+        {% if candidate.degree %}
+            <div class="formation-entry">
+                <p>{{ candidate.degree }} in {{ candidate.field_of_study }} at {{ candidate.institution }}
+                   ({{ candidate.education_start_date|date:"Y" }} - 
+                   {% if candidate.education_end_date %}
+                       {{ candidate.education_end_date|date:"Y" }}
+                   {% else %}
+                       Present
+                   {% endif %})</p>
+            </div>
+        {% else %}
+            <p>No academic formations recorded.</p>
+        {% endif %}
+    </div>
+
+    <div class="actions">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'candidates:candidate_update' candidate.id %}" class="btn btn-primary">Edit Candidate</a>
+        <a href="{% url 'candidates:candidate_delete' candidate.id %}" class="btn btn-danger">Delete Candidate</a>
+        {% endif %}
+    </div>
+{% endblock %}

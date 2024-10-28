@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1, h2 { color: #333; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .candidate-card h3 { margin-top: 0; }
+        .candidate-card p { margin: 0; }
+        .btn { margin-bottom: 20px; margin-top: 3px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Candidate List</h1>
+        <div class="list-group">
+            {% for candidate in candidates %}
+                <div class="list-group-item candidate-card">
+                    <h3>{{ candidate.full_name }}</h3>
+                    <p><strong>Email:</strong> {{ candidate.email }}</p>
+                    <p><strong>Phone:</strong> {{ candidate.phone }}</p>
+                    <p><strong>Date of Birth:</strong> {{ candidate.date_of_birth }}</p>
+                    <p><strong>Company:</strong> {{ candidate.company }}</p>
+                    <p><strong>Position:</strong> {{ candidate.position }}</p>
+                    <p><strong>Experience Start Date:</strong> {{ candidate.experience_start_date }}</p>
+                    <p><strong>Experience End Date:</strong> {{ candidate.experience_end_date }}</p>
+                    <p><strong>Experience Description:</strong> {{ candidate.experience_description }}</p>
+                    <p><strong>Institution:</strong> {{ candidate.institution }}</p>
+                    <p><strong>Degree:</strong> {{ candidate.degree }}</p>
+                    <p><strong>Field of Study:</strong> {{ candidate.field_of_study }}</p>
+                    <p><strong>Education Start Date:</strong> {{ candidate.education_start_date }}</p>
+                    <p><strong>Education End Date:</strong> {{ candidate.education_end_date }}</p>
+                    <p><strong>Resume:</strong> {% if candidate.resume %}<a href="{{ candidate.resume.url }}" target="_blank" class="btn btn-primary">Download</a>{% else %}No resume uploaded{% endif %}</p>
+                </div>
+                <a href="{% url 'candidates:candidate_delete' candidate.id %}?return_to_list=true" class="btn btn-danger">Delete Candidate</a>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
